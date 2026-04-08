@@ -12,6 +12,7 @@ import {
   Droplets, 
   Leaf, 
   Send,
+  ChevronLeft,
   ChevronRight,
   Menu,
   X
@@ -35,9 +36,18 @@ const FARM_IMAGES = [
   "/images/Farm/BK-Coffee-Farm-Pasto-Nariño.jpg"
 ];
 
+const PRODUCT_IMAGES = [
+  "/images/Products/BK-Coffee-Bags-Product.jpg",
+  "/images/Products/BK-Coffee-Bag-Bourbon-Rosado.jpg",
+  "/images/Products/BK-Coffee-Bag-Edición-Especial.jpg"
+];
+
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentFarmImage, setCurrentFarmImage] = useState(0);
+  
+  const [currentProductIndex, setCurrentProductIndex] = useState(0);
+  const [productDirection, setProductDirection] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -45,6 +55,42 @@ export default function App() {
     }, 7000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (PRODUCT_IMAGES.length <= 1) return;
+    const interval = setInterval(() => {
+      setProductDirection(1);
+      setCurrentProductIndex((prev) => prev + 1);
+    }, 7000);
+    return () => clearInterval(interval);
+  }, [currentProductIndex]);
+
+  const handleNextProduct = () => {
+    setProductDirection(1);
+    setCurrentProductIndex((prev) => prev + 1);
+  };
+
+  const handlePrevProduct = () => {
+    setProductDirection(-1);
+    setCurrentProductIndex((prev) => prev - 1);
+  };
+
+  const productVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 100 : -100,
+      opacity: 0,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 100 : -100,
+      opacity: 0,
+    }),
+  };
 
   const navLinks = [
     { name: "Origen", href: "#origen" },
@@ -170,18 +216,59 @@ export default function App() {
 
           {/* Decorative Image Overlap */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: 3 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="hidden lg:block relative"
+            className="relative mt-16 lg:mt-0 max-w-[280px] sm:max-w-sm lg:max-w-none mx-auto w-full group"
           >
             <div className="absolute -top-20 -right-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px]" />
-            <div className="glass-card p-3 rounded-2xl shadow-2xl overflow-hidden">
-              <img 
-                src="/images/BK-Coffee-Bags-Product.jpg" 
-                alt="Coffee Detail" 
-                className="rounded-xl w-full object-cover aspect-[4/5]"
-              />
+            <div className="glass-card p-3 rounded-2xl shadow-2xl overflow-hidden relative aspect-[4/5]">
+              <div className="relative w-full h-full rounded-xl overflow-hidden">
+                <AnimatePresence initial={false} custom={productDirection}>
+                  <motion.img 
+                    key={currentProductIndex}
+                    src={PRODUCT_IMAGES[(((currentProductIndex % PRODUCT_IMAGES.length) + PRODUCT_IMAGES.length) % PRODUCT_IMAGES.length)]}
+                    custom={productDirection}
+                    variants={productVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{
+                      x: { type: "spring", stiffness: 300, damping: 30 },
+                      opacity: { duration: 0.2 }
+                    }}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={1}
+                    onDragEnd={(e, { offset }) => {
+                      const swipeThreshold = 50;
+                      if (offset.x < -swipeThreshold) {
+                        handleNextProduct();
+                      } else if (offset.x > swipeThreshold) {
+                        handlePrevProduct();
+                      }
+                    }}
+                    alt="Coffee Product" 
+                    className="w-full h-full object-cover absolute top-0 left-0"
+                    draggable={false}
+                  />
+                </AnimatePresence>
+              </div>
+
+              {PRODUCT_IMAGES.length > 1 && (
+                <>
+                  <div className="hidden lg:flex absolute inset-y-0 left-0 items-center justify-center pl-6 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+                    <button onClick={handlePrevProduct} aria-label="Previous" className="pointer-events-auto bg-surface/80 p-2 rounded-full text-on-surface hover:text-primary backdrop-blur-sm transition-all shadow-lg active:scale-95 border border-white/10">
+                      <ChevronLeft size={24} />
+                    </button>
+                  </div>
+                  <div className="hidden lg:flex absolute inset-y-0 right-0 items-center justify-center pr-6 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+                    <button onClick={handleNextProduct} aria-label="Next" className="pointer-events-auto bg-surface/80 p-2 rounded-full text-on-surface hover:text-primary backdrop-blur-sm transition-all shadow-lg active:scale-95 border border-white/10">
+                      <ChevronRight size={24} />
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </motion.div>
         </div>
@@ -328,7 +415,7 @@ export default function App() {
               className="inline-flex items-center gap-4 bg-primary text-on-primary px-12 py-5 rounded-2xl font-bold hover:shadow-[0_0_50px_rgba(233,193,118,0.4)] transition-all active:scale-95 text-lg"
             >
               <WhatsAppIcon size={24} />
-              Hacer Pedido vía WhatsApp
+              Hacer Pedido
             </a>
           </motion.div>
         </div>
