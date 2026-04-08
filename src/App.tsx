@@ -164,7 +164,7 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-24 pb-20 lg:pt-20 lg:pb-0 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/80 to-transparent z-10" />
           <img 
@@ -174,7 +174,7 @@ export default function App() {
           />
         </div>
 
-        <div className="container mx-auto px-6 md:px-12 relative z-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="container mx-auto px-6 md:px-12 relative z-20 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -219,7 +219,7 @@ export default function App() {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="relative mt-16 lg:mt-0 max-w-[280px] sm:max-w-sm lg:max-w-none mx-auto w-full group"
+            className="relative lg:mt-0 max-w-[300px] sm:max-w-sm lg:max-w-none mx-auto w-full group"
           >
             <div className="absolute -top-20 -right-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px]" />
             <div className="glass-card p-3 rounded-2xl shadow-2xl overflow-hidden relative aspect-[4/5]">
