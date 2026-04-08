@@ -1,8 +1,17 @@
 """
 Recorta una imagen a las mismas proporciones de una imagen de referencia, centrada.
+Siempre exporta en JPG (quality 95).
+
+Requiere: pip install Pillow
 
 Uso:
-    python crop_to_match.py <imagen_referencia> <imagen_a_recortar> [-o salida.png]
+    python3 scripts/crop_to_match.py <imagen_referencia> <imagen_a_recortar> [-o salida.jpg]
+
+Ejemplo para procesar una imagen de producto:
+    python3 scripts/crop_to_match.py \\
+        public/images/Products/BK-Coffee-Bags-Product.jpg \\
+        "/ruta/a/mi-imagen.png" \\
+        -o public/images/Products/nombre-final.jpg
 """
 
 import argparse
@@ -43,12 +52,15 @@ def main():
     fw, fh = result.size
 
     if args.output:
-        out_path = args.output
+        out_path = Path(args.output).with_suffix(".jpg")
     else:
         p = Path(args.imagen)
-        out_path = str(p.with_stem(p.stem + "_cropped"))
+        out_path = p.with_stem(p.stem + "_cropped").with_suffix(".jpg")
 
-    result.save(out_path)
+    if result.mode in ("RGBA", "P", "LA"):
+        result = result.convert("RGB")
+
+    result.save(str(out_path), "JPEG", quality=95)
     print(f"Ratio referencia: {rw}:{rh} ({rw/rh:.3f})")
     print(f"Guardado: {out_path} ({fw}x{fh})")
 
