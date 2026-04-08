@@ -32,8 +32,8 @@ const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
 );
 
 const FARM_IMAGES = [
-  "/images/Farm/BK-Coffee-Farm-Drone-View-Pasto-Nariño.jpg",
-  "/images/Farm/BK-Coffee-Farm-Pasto-Nariño.jpg"
+  "/images/Farm/BK-Coffee-Farm-Drone-View-Pasto.jpg",
+  "/images/Farm/BK-Coffee-Farm-Pasto.jpg"
 ];
 
 const PRODUCT_IMAGES = [
