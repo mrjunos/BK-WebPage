@@ -39,7 +39,7 @@ const FARM_IMAGES = [
 const PRODUCT_IMAGES = [
   "/images/Products/BK-Coffee-Bags-Product.jpg",
   "/images/Products/BK-Coffee-Bag-Bourbon-Rosado.jpg",
-  "/images/Products/BK-Coffee-Bag-Edición-Especial.jpg"
+  "/images/Products/BK-Coffee-Bag-Edicion-Especial.jpg"
 ];
 
 export default function App() {
