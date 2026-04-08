@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { 
   Star, 
   Coffee, 
@@ -16,7 +16,7 @@ import {
   Menu,
   X
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
   <svg 
@@ -30,8 +30,21 @@ const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
   </svg>
 );
 
+const FARM_IMAGES = [
+  "/images/Farm/BK-Coffee-Farm-Drone-View-Pasto-Nariño.jpg",
+  "/images/Farm/BK-Coffee-Farm-Pasto-Nariño.jpg"
+];
+
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentFarmImage, setCurrentFarmImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentFarmImage((prev) => (prev + 1) % FARM_IMAGES.length);
+    }, 7000);
+    return () => clearInterval(interval);
+  }, []);
 
   const navLinks = [
     { name: "Origen", href: "#origen" },
@@ -47,10 +60,9 @@ export default function App() {
         <div className="flex justify-between items-center px-6 md:px-12 py-5 max-w-7xl mx-auto">
           <div className="flex items-center gap-3">
             <img 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8d3tQbDOHoRiInj8CIOGuL0nQK2roxlo0ags2pWm1vkU6I7DHjG0089vf-XAGRzLLsWZjDvMBmB0UXZ-46XWkSQFhk1ZiXddmZzlseJSimdHR1Mx49NbXFOzMPIaeiXPbxK3AXmnJiYO6pIeXYW-Fbme3ZPVQxcon-SkFoc1_JG8nRmOZMbOS570gJ9Ao-8OJhlv0rtCnmLDh7ZPM4q6S2V7CPP0KdWP-p9aeC1qcGEfq7Key7_byeKi4Z2trF4tV6_xjxp0ltVs" 
+              src="/images/BK-Logo.png" 
               alt="Beethoven Kaffee Logo" 
               className="h-12 w-auto"
-              referrerPolicy="no-referrer"
             />
           </div>
 
@@ -110,10 +122,9 @@ export default function App() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/80 to-transparent z-10" />
           <img 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_tU5rY90LOFNE9KpQmy-BTjqugtxG5uTBUHeuPezD5QIyypxh_iPXs_GrFggeKTkSNEuHci5Dn7T5vakOFhDt05gkPiA4oihWEoQVeIyxkPZ5jChT7ibo4mY1GmFZQY8pvmw7QV7TPToL_24__XsCdfhfw-u43ARvZ2Y8jJjksN-IWyxRA0kGCVwj0qf58RlOmqpe-fyps-eNE8W3T3XF2BQg0nbyanteyERlBhcV_0ss1QaaaR_DrzZuBPXhIWgrFUIVRJQOfl0" 
+            src="/images/BK-Header-Background-Coffee-Beans.jpg" 
             alt="Premium Coffee Bag" 
             className="w-full h-full object-cover opacity-40"
-            referrerPolicy="no-referrer"
           />
         </div>
 
@@ -130,7 +141,7 @@ export default function App() {
               </span>
               <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.1] text-on-background">
                 Beethoven Kaffee: <br/>
-                <span className="text-primary-container italic font-light text-xl md:text-2xl block mt-4 mb-2">Una experiencia sensorial al paladar</span>
+                <span className="text-primary-container italic font-light text-xl md:text-2xl block mt-4 mb-2 tracking-normal">Una experiencia sensorial al paladar</span>
               </h1>
             </div>
 
@@ -153,13 +164,7 @@ export default function App() {
                 <WhatsAppIcon size={20} />
                 Comprar
               </a>
-              <a 
-                href="#perfil"
-                className="group flex items-center gap-3 text-primary font-bold py-4 text-sm tracking-widest uppercase"
-              >
-                Descubrir Notas
-                <span className="w-12 h-[1px] bg-primary group-hover:w-20 transition-all duration-500" />
-              </a>
+
             </div>
           </motion.div>
 
@@ -173,10 +178,9 @@ export default function App() {
             <div className="absolute -top-20 -right-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px]" />
             <div className="glass-card p-3 rounded-2xl shadow-2xl overflow-hidden">
               <img 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbdrc8pEiGgGyxwW1_KEHVfs-rcUYcjqv5DoHfguGtJ0e6XiPo9Dne_-hjcrievWPsGGaZdwRDk45DRPvKRqcub3LL67YX4SOTd4cCaL5-VyBb_YujyS91nLesR8BxNw11_8wQXL6yxDUtkemR1L5vBz6cFLePZ4qRl-Xm7rqfr7Cgx6fH_tC5y8JBDQqCqXWBvqAYDp9m9Ya87TVyHmZjgZCWdPCdFTi2UB0Xld6ay_aJ4AFYFH61wgark-hTKkSv-LEMFme5cu0" 
+                src="/images/BK-Coffee-Bags-Product.jpg" 
                 alt="Coffee Detail" 
                 className="rounded-xl w-full object-cover aspect-[4/5]"
-                referrerPolicy="no-referrer"
               />
             </div>
           </motion.div>
@@ -220,12 +224,11 @@ export default function App() {
       {/* Sensory Profile */}
       <section id="perfil" className="py-32 relative overflow-hidden">
         {/* Background Decorative Image */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 opacity-10 pointer-events-none w-full max-w-5xl">
+        <div className="absolute inset-0 opacity-10 pointer-events-none z-0">
           <img 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5mmxG6PNgXGPKbYp0Aa1zlxe_Yidr_TFEEt-ac2tQy58lnPMtzWvbNd26NQ5mlRPlmEkhX65vdw52XgxfvpUYWUfw0fk_Dqanf_SCwfXAoYHnvDyY4C4XIyLMPPpkvTUflGKpvP-IuAoDvMKPSyDya28m50xCP4gCg9PZf3LmL_A81y46xgy7gUllIyrD6vEw5E_z2ExnSuq8qLewgnlAgFcAVORBJG6edaQWs9FbATaQwa4k40vWHNu2ucoRhllypY4YOUizGi8" 
-            alt="Coffee Beans Texture" 
-            className="w-full h-auto"
-            referrerPolicy="no-referrer"
+            src="/images/BK-Coffee-Brans-Fruits.jpg" 
+            alt="Sensory Profile Background" 
+            className="w-full h-full object-cover"
           />
         </div>
 
@@ -280,21 +283,27 @@ export default function App() {
       {/* Origin Overlay Map Section */}
       <section id="proceso" className="h-[600px] relative group overflow-hidden">
         <div className="absolute inset-0 bg-surface/50 z-10 transition-colors duration-700 group-hover:bg-surface/30" />
-        <img 
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0A5SfImAPklTBon_a7pNfEMKLbP0ReuW_-46BEbsZ5IQ0I5vEZaSFE84-8BFfmC3ZLHfCWclVV0igqjCAzw0hHRxSWpWL8ijCn1mC3sSdNIQ2hDqa9u9qwgBcy9igb56UfoGatRxdgp30vQDXxFpBnOcKSXbNJs1VHlCViqvcUQMc7cFoea8z-AGvgZ4Mhz_O30ipuScflBezuexN-u3I4Mwhhfq5j_yDHsNkt_Ntz8JCGELjnE38WgY_2WKSrX8BGKo0N4FJX4k" 
-          alt="Nariño Landscape" 
-          className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[5000ms]"
-          referrerPolicy="no-referrer"
-        />
+        <AnimatePresence>
+          <motion.img 
+            key={currentFarmImage}
+            src={FARM_IMAGES[currentFarmImage]}
+            alt="Nariño Landscape" 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5 }}
+            className="absolute inset-0 w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[5000ms]"
+          />
+        </AnimatePresence>
         <div className="absolute inset-0 flex flex-col items-center justify-center z-20 text-center px-6">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="space-y-6"
+            className="space-y-6 p-12 md:p-20 max-w-4xl w-full bg-[radial-gradient(ellipse_35%_35%_at_50%_50%,rgba(19,19,19,0.8)_0%,rgba(19,19,19,0)_100%)]"
           >
-            <MapPin className="text-primary mx-auto" size={48} />
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter">La Florida, Nariño</h2>
-            <p className="text-on-surface-variant max-w-md mx-auto text-lg font-light leading-relaxed">
+            <MapPin className="text-primary mx-auto drop-shadow-lg" size={48} />
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-white drop-shadow-md">La Florida, Nariño</h2>
+            <p className="text-white max-w-md mx-auto text-lg font-medium leading-relaxed drop-shadow-md">
               El lugar donde la geografía y el clima se unen para crear la perfección cafetera.
             </p>
           </motion.div>
@@ -331,10 +340,9 @@ export default function App() {
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="flex items-center gap-3">
               <img 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8d3tQbDOHoRiInj8CIOGuL0nQK2roxlo0ags2pWm1vkU6I7DHjG0089vf-XAGRzLLsWZjDvMBmB0UXZ-46XWkSQFhk1ZiXddmZzlseJSimdHR1Mx49NbXFOzMPIaeiXPbxK3AXmnJiYO6pIeXYW-Fbme3ZPVQxcon-SkFoc1_JG8nRmOZMbOS570gJ9Ao-8OJhlv0rtCnmLDh7ZPM4q6S2V7CPP0KdWP-p9aeC1qcGEfq7Key7_byeKi4Z2trF4tV6_xjxp0ltVs" 
+                src="/images/BK-Logo.png" 
                 alt="BK Logo" 
                 className="h-12 w-auto brightness-110"
-                referrerPolicy="no-referrer"
               />
             </div>
             <p className="text-on-surface-variant text-xs tracking-widest uppercase font-medium">
