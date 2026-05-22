@@ -64,11 +64,23 @@ vi.mock("firebase/app", () => {
 });
 
 // Mock firebase/auth
+export const mockSignInWithEmailAndPassword = vi.fn();
+export const mockCreateUserWithEmailAndPassword = vi.fn();
+export const mockSignInWithPopup = vi.fn();
+export const mockSignOut = vi.fn();
+
+class MockGoogleAuthProvider {}
+
 vi.mock("firebase/auth", () => {
   return {
     getAuth: vi.fn(() => ({
       currentUser: null,
     })),
+    signInWithEmailAndPassword: (...args: any[]) => mockSignInWithEmailAndPassword(...args),
+    createUserWithEmailAndPassword: (...args: any[]) => mockCreateUserWithEmailAndPassword(...args),
+    signInWithPopup: (...args: any[]) => mockSignInWithPopup(...args),
+    signOut: (...args: any[]) => mockSignOut(...args),
+    GoogleAuthProvider: MockGoogleAuthProvider,
   };
 });
 
