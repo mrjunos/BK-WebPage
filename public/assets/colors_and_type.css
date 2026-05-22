@@ -1,0 +1,275 @@
+/* =========================================================================
+   Beethoven Kaffee — Foundations
+   Color + Typography tokens
+   ========================================================================= */
+
+/* ---------- Fonts ---------- */
+/* UI / body — Manrope (lifted from the source codebase)               */
+/* Display / wordmark — Cormorant Garamond (Google Fonts substitute    */
+/*   for the elegant serif used on packaging; flagged in README).      */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap');
+
+:root {
+  /* =========================================================================
+     COLOR — Brand
+     Single signature accent: warm gold inspired by the brass-on-black
+     packaging and the gilded BK monogram.
+     ========================================================================= */
+  --bk-gold-50:  #f7ebcf;
+  --bk-gold-100: #efd9a8;
+  --bk-gold-200: #e9c176;   /* primary — the signature gold */
+  --bk-gold-300: #d4ad65;
+  --bk-gold-400: #c5a059;   /* primary-container / pressed gold */
+  --bk-gold-500: #a78645;
+  --bk-gold-600: #7a5f29;
+  --bk-gold-700: #412d00;   /* on-primary (text on gold) */
+
+  /* =========================================================================
+     COLOR — Neutrals (warm-cast black → bone)
+     The product lives on near-black; UI surfaces are layered greys with a
+     subtle warm tint to feel grounded rather than tech.
+     ========================================================================= */
+  --bk-ink:        #0a0a0a;   /* deepest — used sparingly */
+  --bk-surface:    #131313;   /* page background */
+  --bk-surface-1:  #1c1b1b;   /* surface-container-low */
+  --bk-surface-2:  #232221;   /* surface-container */
+  --bk-surface-3:  #2a2928;   /* surface-container-high */
+  --bk-surface-4:  #353534;   /* surface-container-highest / cards */
+
+  --bk-line:       #4e4639;   /* outline-variant (warm) */
+  --bk-line-soft:  rgba(78, 70, 57, 0.25);
+
+  --bk-bone:       #e5e2e1;   /* on-background / primary text */
+  --bk-bone-soft:  #d1c5b4;   /* on-surface-variant / secondary text */
+  --bk-bone-dim:   #8a8276;   /* tertiary text / meta */
+
+  /* =========================================================================
+     COLOR — Supporting
+     ========================================================================= */
+  --bk-clay:       #5b403c;   /* secondary-container — terracotta accent */
+  --bk-clay-deep:  #422a26;   /* on-secondary */
+
+  /* =========================================================================
+     COLOR — Semantic
+     ========================================================================= */
+  --color-fg:        var(--bk-bone);
+  --color-fg-muted:  var(--bk-bone-soft);
+  --color-fg-dim:    var(--bk-bone-dim);
+  --color-fg-accent: var(--bk-gold-200);
+
+  --color-bg:        var(--bk-surface);
+  --color-bg-elev-1: var(--bk-surface-1);
+  --color-bg-elev-2: var(--bk-surface-2);
+  --color-bg-card:   var(--bk-surface-4);
+
+  --color-border:    var(--bk-line);
+  --color-border-soft: var(--bk-line-soft);
+
+  --color-accent:        var(--bk-gold-200);
+  --color-accent-deep:   var(--bk-gold-400);
+  --color-on-accent:     var(--bk-gold-700);
+  --color-accent-glow:   rgba(233, 193, 118, 0.30);
+  --color-accent-veil:   rgba(233, 193, 118, 0.06);
+
+  /* =========================================================================
+     TYPE — Families
+     ========================================================================= */
+  --font-sans:    "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", "Cormorant", Georgia, serif;
+  --font-mono:    ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* =========================================================================
+     TYPE — Scale (mobile-first; web sizes scale up via clamp)
+     ========================================================================= */
+  --fs-display: clamp(2.75rem, 6vw + 1rem, 5rem);    /* 44 → 80 */
+  --fs-h1:      clamp(2.25rem, 4vw + 1rem, 3.5rem);  /* 36 → 56 */
+  --fs-h2:      clamp(1.75rem, 2vw + 1rem, 2.5rem);  /* 28 → 40 */
+  --fs-h3:      1.5rem;                              /* 24 */
+  --fs-h4:      1.25rem;                             /* 20 */
+  --fs-lead:    1.125rem;                            /* 18 */
+  --fs-body:    1rem;                                /* 16 */
+  --fs-small:   0.875rem;                            /* 14 */
+  --fs-micro:   0.75rem;                             /* 12 */
+  --fs-eyebrow: 0.625rem;                            /* 10 — uppercase only */
+
+  /* Tracking */
+  --tracking-tight:   -0.04em;   /* display headlines */
+  --tracking-snug:    -0.02em;   /* h3/h4 */
+  --tracking-normal:   0;
+  --tracking-wide:     0.1em;
+  --tracking-widest:   0.3em;    /* eyebrows / nav */
+
+  /* Line heights */
+  --lh-tight:  1.05;
+  --lh-snug:   1.2;
+  --lh-normal: 1.5;
+  --lh-loose:  1.7;
+
+  /* Weights */
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-bold:     700;
+  --fw-black:    900;
+
+  /* =========================================================================
+     SPACING & RADII
+     ========================================================================= */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+  --space-9:  96px;
+  --space-10: 128px;
+
+  --radius-xs:  6px;
+  --radius-sm:  10px;
+  --radius-md:  14px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+  --radius-2xl: 40px;
+  --radius-pill: 999px;
+
+  /* =========================================================================
+     ELEVATION & EFFECTS
+     ========================================================================= */
+  --shadow-card:    0 2px 6px rgba(0,0,0,0.35), 0 12px 32px rgba(0,0,0,0.45);
+  --shadow-float:   0 8px 24px rgba(0,0,0,0.50), 0 24px 64px rgba(0,0,0,0.55);
+  --glow-gold:      0 0 40px rgba(233, 193, 118, 0.30);
+  --glow-gold-lg:   0 0 60px rgba(233, 193, 118, 0.40);
+
+  /* The signature glass card — used on hero product frame, CTA, sensory cards */
+  --glass-bg:     rgba(53, 53, 52, 0.40);
+  --glass-blur:   blur(20px);
+  --glass-border: 1px solid rgba(78, 70, 57, 0.20);
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-emph:     cubic-bezier(0.16, 1, 0.30, 1);
+  --dur-fast:   180ms;
+  --dur-base:   300ms;
+  --dur-slow:   700ms;
+  --dur-cinema: 1500ms;     /* hero crossfades */
+}
+
+/* =========================================================================
+   SEMANTIC TEXT STYLES
+   Use these as classes OR @apply / mixin into your own components.
+   ========================================================================= */
+
+.bk-display {
+  font-family: var(--font-sans);
+  font-size: var(--fs-display);
+  font-weight: var(--fw-black);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-fg);
+}
+
+.bk-display--serif {
+  font-family: var(--font-display);
+  font-weight: var(--fw-light);
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
+.bk-h1 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-fg);
+}
+
+.bk-h2 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-fg);
+}
+
+.bk-h3 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-fg);
+}
+
+.bk-h4 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-snug);
+  color: var(--color-fg);
+}
+
+/* Tagline / italic serif — used for the "Una experiencia sensorial" subline */
+.bk-tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: var(--fw-light);
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-normal);
+  color: var(--color-accent-deep);
+}
+
+.bk-lead {
+  font-family: var(--font-sans);
+  font-size: var(--fs-lead);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-loose);
+  color: var(--color-fg-muted);
+}
+
+.bk-body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-normal);
+  color: var(--color-fg);
+}
+
+.bk-small {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-normal);
+  color: var(--color-fg-muted);
+}
+
+/* Eyebrow — the system's signature accent label. ALWAYS uppercase, gold,
+   wide-tracked. Often paired with a 2px gold left border. */
+.bk-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.bk-eyebrow--bordered {
+  border-left: 2px solid var(--color-accent);
+  padding-left: 16px;
+}
+
+/* Nav / capsule label — slightly tighter tracking than eyebrow */
+.bk-label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+}
