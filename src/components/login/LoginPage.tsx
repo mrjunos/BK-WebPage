@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut
+} from "firebase/auth";
 import { auth } from "../../firebase";
 
 interface LoginPageProps {
@@ -13,6 +19,39 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const [shake, setShake] = useState(false);
+
+  const AUTHORIZED_ADMINS = ["admin@bk.co", "jjcadu@gmail.com"];
+
+  const handleGoogleSignIn = async () => {
+    setErrorMsg("");
+    setLoading(true);
+
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      
+      if (!user.email || !AUTHORIZED_ADMINS.includes(user.email.toLowerCase())) {
+        await signOut(auth);
+        setErrorMsg("Este correo electrónico de Google no está autorizado como administrador de Beethoven Kaffee.");
+        triggerShake();
+        setLoading(false);
+        return;
+      }
+
+      setLoading(false);
+      onLoginSuccess();
+    } catch (error: any) {
+      console.error("Google sign in error: ", error);
+      if (error.code === "auth/popup-closed-by-user") {
+        setErrorMsg("El proceso de inicio de sesión fue cancelado por el usuario.");
+      } else {
+        setErrorMsg("Error de autenticación con Google. Intente de nuevo.");
+      }
+      triggerShake();
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -497,7 +536,12 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
 
           <div className="card__divider">o continúe con</div>
 
-          <button type="button" className="ghost-btn" disabled={loading}>
+          <button 
+            type="button" 
+            className="ghost-btn" 
+            onClick={handleGoogleSignIn}
+            disabled={loading}
+          >
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 10H12v4h5.6c-.2 2.3-2.2 4-5.6 4-3.3 0-6-2.7-6-6s2.7-6 6-6c1.5 0 2.9.6 4 1.6l3-3C16.9 2.8 14.6 2 12 2 6.5 2 2 6.5 2 12s4.5 10 10 10c5.8 0 10-4 10-10 0-.7-.1-1.3-.2-2z"/></svg>
             Google Workspace
           </button>
