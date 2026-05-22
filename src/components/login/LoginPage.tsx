@@ -45,8 +45,8 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
       console.error("Google sign in error: ", error);
       if (error.code === "auth/popup-closed-by-user") {
         setErrorMsg("El proceso de inicio de sesión fue cancelado por el usuario.");
-      } else if (error.code === "auth/operation-not-allowed") {
-        setErrorMsg("El proveedor de inicio de sesión con Google no está habilitado en la consola de Firebase. Por favor, actívelo en Authentication > Sign-in method.");
+      } else if (error.code === "auth/operation-not-allowed" || error.code === "auth/configuration-not-found") {
+        setErrorMsg("El proveedor de inicio de sesión con Google no se encuentra habilitado o configurado en la consola de Firebase. Por favor, actívelo en Authentication > Sign-in method.");
       } else if (error.code === "auth/unauthorized-domain") {
         setErrorMsg("Este dominio no está autorizado para realizar autenticación en Firebase. Por favor, agréguelo a la lista de dominios autorizados en la consola.");
       } else {
